@@ -1,0 +1,15 @@
+body {
+ background-color: linen;
+}
+h1 {
+ color: maroon;
+ margin-left: 40px;
+}
+li {
+ font-family: monospace;
+ font-size: 13px;
+ font-STYLE: normal;
+ font-variant: normal;
+ font-weight: 400;
+ line-height: 18.5714px;
+}

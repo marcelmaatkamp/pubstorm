@@ -1,0 +1,66 @@
+<HTML>
+ <HEAD>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+ </HEAD>
+<BODY>
+<PRE>
+FROM alpine:3.3
+RUN apk add --update nodejs && rm -rf /var/cache/apk/*
+RUN npm install express-generator json forever -g &&\
+  rm -rf /var/cache/apk/*
+WORKDIR /express
+EXPOSE 3000
+CMD ["node"]
+
+docker-compose build express
+docker-compose run --entrypoint sh express
+
+ express example
+
+   create : example
+   create : example/package.json
+   create : example/app.js
+   create : example/public
+   create : example/public/javascripts
+   create : example/public/images
+   create : example/public/stylesheets
+   create : example/public/stylesheets/style.css
+   create : example/routes
+   create : example/routes/index.js
+   create : example/routes/users.js
+   create : example/views
+   create : example/views/index.jade
+   create : example/views/layout.jade
+   create : example/views/error.jade
+   create : example/bin
+   create : example/bin/www
+
+   install dependencies:
+     $ cd example && npm install
+
+   run the app:
+     $ DEBUG=example:* npm start
+
+FROM alpine:3.3
+RUN apk add --update nodejs && rm -rf /var/cache/apk/*
+RUN npm install express-generator json forever -g &&\
+  rm -rf /var/cache/apk/*
+WORKDIR /express/example
+EXPOSE 3000
+CMD ["node"]
+
+version: '2'
+services:
+ express:
+  build: express/
+  command: npm start
+  links:
+   - rabbitmq:rabbitmq
+   - mongodb:mongodb
+  environment:
+   - DEBUG=example:*
+  volumes:
+   - ./volumes/express:/express
+</PRE>
+</BODY>
+</HTML>
